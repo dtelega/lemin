@@ -85,12 +85,12 @@ void	check_rooms(t_read *read)
 		k = get_nb_rooms(read, 1);
 		while (k-- != 0)
 			if ((!ft_strcmp(read->rooms[k]->name[0], read->rooms[i]->name[0]) &&
-				i != k) || (read->rooms[k]->x == read->rooms[i]->y &&
+				i != k) || (read->rooms[k]->x == read->rooms[i]->x &&
 				read->rooms[k]->y == read->rooms[i]->y && i != k))
 			{
 				ft_putstr_fd("Invalid room\n", 2);
-				clear_rooms(read);
-				clear_read(read);
+				//clear_rooms(read);
+				//clear_read(read);
 				free(read);
 				while (1){}
 				exit(0);

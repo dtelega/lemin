@@ -23,14 +23,12 @@ void	lemin(void)
 	get_nb_of_ants(read);
 	read->rooms = (t_room **)malloc(get_nb_rooms(read, 1) * sizeof(read->rooms));
 	get_rooms(read);
-	int i = 2;
-	printf("name[%i] - %s, (%d, %d) links->%s\n", i, read->rooms[i]->name[0], read->rooms[i]->x, read->rooms[i]->y, read->rooms[i]->name[1]);
 	get_links(read);
 	push_ants(read);
 
 
-
 //***********************************************************
+	int i;
 	i = 0;
 	printf("RESULT\n");
 	int count = get_nb_rooms(read, 1);
@@ -40,8 +38,12 @@ void	lemin(void)
 		i++;
 	}
 	i = 0;
-	while (i <= read->count_ways)
-		printf("way %i = [%s]\n", i, read->ways[i++]);
+	printf("count ways = %d\n", read->ways->count_ways);
+	while (read->ways->ways[i][0] != '\0')
+	{
+		printf("way %i = [%s]\n", i, read->ways->ways[i]);
+		i++;
+	}
 
 // ****************************************************************
 

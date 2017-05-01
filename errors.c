@@ -14,7 +14,7 @@
 
 void	invalid_room(t_read *read, t_room *room)
 {
-	ft_putstr_fd("Invalid room\n", 2);
+	ft_putstr_fd("ERROR! Invalid room\n", 2);
 	clear_read(read);
 	free(room->name[0]);
 	free(room->name[1]);
@@ -72,7 +72,13 @@ void	clear_rooms(t_read *read)
 
 void	clear_read(t_read *read)
 {
+	int 	i;
+
 	printf("Open clear_read\n");
 	free_split(read->map);
-	free_split(read->ways);
+	i = 0;
+	while (i <= read->ways->count_ways)
+		free(read->ways->ways[i++]);
+	free(read->ways->ways);
+	free(read->ways);
 }

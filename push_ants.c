@@ -24,49 +24,57 @@ void	push_ants(t_read *read)
 
 int 	way_is_found(t_read *read)
 {
-	read->ways = (char **)malloc(1 * sizeof(read->ways));
-	read->ways[0] = ft_strnew(0);
-	read->count_ways = 0;
-	start_finding(read, read->rooms[1]->name[0]);
-	if (read->ways[0][0] == '\0')
+	t_ways		*ways;
+
+	ways = (t_ways *)malloc(1 * sizeof(ways));
+	ways->ways = (char **)malloc(1 * sizeof(read->ways));
+	ways->ways[0] = ft_strnew(0);
+	ways->count_ways = 0;
+	read->ways = ways;
+	start_finding(read, ways, read->rooms[1]->name[0]);
+	if (ways->ways[0][0] == '\0')
 		return (0);
 	return (1);
 }
 
-void	start_finding(t_read *read, char *name)
+void	start_finding(t_read *read, t_ways *ways, char *name)
 {
 	char	**split;
 	int 	i;
 	int 	k;
 
-	printf("Start finding %s\n", name);
 	i = room(read, name);
-	printf("index room = %d\n", i);
-	read->ways[read->count_ways] = ft_strjoin_free(read->ways[read->count_ways], name);
-	read->ways[read->count_ways] = ft_strjoin_free(read->ways[read->count_ways], " ");
+	//printf("Start finding %s\n", name);
+	//printf("index room = %d\n", i);
+	ways->ways[ways->count_ways] =
+		ft_strjoin_free(ways->ways[ways->count_ways], name);
+	ways->ways[ways->count_ways] = 
+		ft_strjoin_free(ways->ways[ways->count_ways], " ");
 	if (i == 0)
 	{
-		read->count_ways++;
+		ways->count_ways++;
 		printf("END IS FOUND!\n");
-		mo_memory_way(read);
-		read->ways[read->count_ways] = ft_strdup(read->ways[read->count_ways - 1]);
-		delete_last_room(read);
+		mo_memory_way(ways);
+		ways->ways[ways->count_ways] =
+			ft_strjoin_free(ways->ways[ways->count_ways],
+				ways->ways[ways->count_ways - 1]);
+		delete_last_room(ways);
 		return ;
 	}
 	split = ft_strsplit(read->rooms[i]->name[1], ' ');
 	k = 0;
 	while (split[k])
 	{
-		if (!room_is_here(read->ways[read->count_ways], split[k]))
-			start_finding(read, split[k]);
+		if (!room_is_here(ways->ways[ways->count_ways], split[k]))
+			start_finding(read, ways, split[k]);
 		k++;
 	}
-	delete_last_room(read);
+	delete_last_room(ways);
 	free_split(split);
 }
 
 
-/*   -------------------------------          HELP STUFF  ------------------------*/
+/*   -------------------------------          HELP STUFF           ------------------------*/
 /**/
 
 void	free_split(char **split)
@@ -89,41 +97,41 @@ int		room(t_read *read, char	*name)
 	return (i);
 }
 
-void 	delete_last_room(t_read *read)
+void 	delete_last_room(t_ways *ways)
 {
 	int		i;
 	int		len;
 
-	i = read->count_ways;
+	i = ways->count_ways;
 	printf("delete last room\n");
-	len = ft_strlen(read->ways[i]);
-	read->ways[i][len - 1] = '\0';
-	while (read->ways[i][len - 1] != ' ')
+	len = ft_strlen(ways->ways[i]);
+	ways->ways[i][len - 1] = '\0';
+	while (ways->ways[i][len - 1] != ' ' && len - 1 >= 0)
 	{
-		read->ways[i][len - 1] = '\0';
+		ways->ways[i][len - 1] = '\0';
 		len--;
 	}
 }
 
-void	mo_memory_way(t_read *read)
+void	mo_memory_way(t_ways *ways)
 {
 	int		i;
 	char	**new_way;
 
 	i = 0;
-	while (read->ways[i])
+	while (ways->ways[i])
 		i++;
 	new_way = (char **)malloc(++i * sizeof(new_way));
 	i = 0;
-	while (i < read->count_ways)
+	while (i < ways->count_ways)
 	{
-		new_way[i] = ft_strdup(read->ways[i]);
-		free(read->ways[i]);
+		new_way[i] = ft_strdup(ways->ways[i]);
+		free(ways->ways[i]);
 		i++;
 	}
-	free(read->ways);
+	free(ways->ways);
 	new_way[i] = ft_strnew(0);
-	read->ways = new_way;
+	ways->ways = new_way;
 }
 /**/
 /*   -------------------------------          HELP STUFF  ------------------------*/

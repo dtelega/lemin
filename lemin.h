@@ -27,7 +27,7 @@ typedef struct 	s_read
 	int 			count_room;
 	char			**map;
 	struct s_room	**rooms;
-	char			**ways;
+	struct s_ways	*ways;
 	int				count_ways;
 }				t_read;
 
@@ -38,6 +38,12 @@ typedef struct 	s_room
 	int 	y;
 	int 	ants_in;
 }				t_room;
+
+typedef struct 	s_ways
+{
+	char	**ways;
+	int		count_ways;
+}				t_ways;
 
 char			*ft_strjoin_free(char *s1, char *s2);
 void			read_map(t_read *read);
@@ -61,11 +67,11 @@ void			start_push(t_read *read);
 void			push_ants(t_read *read);
 void			print_map(t_read *read);
 int 			way_is_found(t_read *read);
-void			start_finding(t_read *read, char *name);
+void			start_finding(t_read *read, t_ways *ways, char *name);
 void			free_split(char **split);
 int				room(t_read *read, char	*name);
-void 			delete_last_room(t_read *read);
-void			mo_memory_way(t_read *read);
+void 			delete_last_room(t_ways *ways);
+void			mo_memory_way(t_ways *ways);
 int				room_is_here(char *way, char *name);
 
 #endif

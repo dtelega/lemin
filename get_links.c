@@ -22,17 +22,20 @@ void	get_links(t_read *read)
 		i++;
 	while (read->map[i])
 	{
-		split = ft_strsplit(read->map[i], '-');
-		get_link(read, split[0], split[1], split);
-		get_link(read, split[1], split[0], split);
-		free(split[0]);
-		free(split[1]);
-		free(split);
+		if (read->map[i][0] != '#')
+		{
+			split = ft_strsplit(read->map[i], '-');
+			get_link(read, split[0], split[1], split);
+			get_link(read, split[1], split[0], split);
+			free(split[0]);
+			free(split[1]);
+			free(split);
+		}
 		i++;
 	}
 }
 
-void	get_link(t_read *read, char	*name1, char *name2, char **s)
+void	get_link(t_read *read, char *name1, char *name2, char **s)
 {
 	int	i;
 
@@ -74,6 +77,5 @@ void	invalid_link(t_read *read, char **s)
 	free(s);
 	clear_rooms(read);
 	clear_read(read);
-	while(1){}
 	exit(0);
 }

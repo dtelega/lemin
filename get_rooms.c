@@ -28,7 +28,7 @@ int		get_nb_rooms(t_read *read, int i)
 
 void	get_rooms(t_read *read)
 {
-	int 	i;
+	int		i;
 	int		count;
 
 	count = get_nb_rooms(read, 1);
@@ -41,7 +41,7 @@ void	get_rooms(t_read *read)
 		else if (!ft_strcmp(read->map[i], "##end"))
 			get_room(read, ++i, 0);
 		else if (read->map[i][0] == '#')
-			i++;
+			;
 		else if (!ft_strchr(read->map[i], '-'))
 			get_room(read, i, 2);
 	}
@@ -51,7 +51,7 @@ void	get_rooms(t_read *read)
 void	get_room(t_read *read, int i, int type)
 {
 	char	**split;
-	t_room 	*room;
+	t_room	*room;
 
 	room = create_room();
 	split = ft_strsplit(read->map[i], ' ');
@@ -70,8 +70,6 @@ void	get_room(t_read *read, int i, int type)
 	free_split(split);
 }
 
-
-
 void	check_rooms(t_read *read)
 {
 	int		i;
@@ -80,42 +78,30 @@ void	check_rooms(t_read *read)
 
 	count = get_nb_rooms(read, 1);
 	i = 0;
-	while (count-- != 0)
+	while (--count != 0)
 	{
 		k = get_nb_rooms(read, 1);
-		while (k-- != 0)
+		while (--k != 0)
+		{
 			if ((!ft_strcmp(read->rooms[k]->name[0], read->rooms[i]->name[0]) &&
 				i != k) || (read->rooms[k]->x == read->rooms[i]->x &&
 				read->rooms[k]->y == read->rooms[i]->y && i != k))
 			{
 				ft_putstr_fd("Invalid room\n", 2);
-				//clear_rooms(read);
-				//clear_read(read);
-				free(read);
-				while (1){}
 				exit(0);
 			}
+		}
 		i++;
 	}
 }
-
 
 t_room	*create_room(void)
 {
 	t_room	*room;
 
-	room = (t_room *)malloc(sizeof(room));
+	room = (t_room *)malloc(2 * sizeof(room));
 	room->name = (char **)malloc(2 * sizeof(room->name));
 	room->name[0] = ft_strnew(0);
 	room->name[1] = ft_strnew(0);
 	return (room);
 }
-
-
-
-
-
-
-
-
-

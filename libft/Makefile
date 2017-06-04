@@ -23,15 +23,15 @@ FLAGS = -Wall -Wextra -Werror
 all:$(NAME)
 
 %.o: %.c
-	gcc $(FLAGS) -I $(IN) -c $< -o $@
+	@gcc $(FLAGS) -I $(IN) -c $< -o $@
 
 $(NAME): $(OB)
-	ar rc $(NAME) $(OB)
+	@ar rc $(NAME) $(OB)
 
 clean:
-	rm -rf $(OB)
+	@rm -rf $(OB)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: clean all

@@ -20,7 +20,6 @@ void	invalid_room(t_read *read, t_room *room)
 	free(room->name[1]);
 	free(room->name);
 	free(room);
-	while(1){}
 	exit(0);
 }
 
@@ -49,36 +48,4 @@ int		exist(t_read *read, char *name)
 		if (!ft_strcmp(read->map[i], name))
 			return (1);
 	return (0);
-}
-
-void	clear_rooms(t_read *read)
-{
-	int		i;
-	int		count;
-
-	printf("Open clear_rooms\n");
-	i = 0;
-	count = get_nb_rooms(read, 1);
-	while (count-- != 0)
-	{
-		free(read->rooms[i]->name[0]);
-		free(read->rooms[i]->name[1]);
-		free(read->rooms[i]->name);
-		free(read->rooms[i]);
-		i++;
-	}
-	free(read->rooms);
-}
-
-void	clear_read(t_read *read)
-{
-	int 	i;
-
-	printf("Open clear_read\n");
-	free_split(read->map);
-	i = 0;
-	while (i <= read->ways->count_ways)
-		free(read->ways->ways[i++]);
-	free(read->ways->ways);
-	free(read->ways);
 }

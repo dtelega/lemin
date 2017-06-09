@@ -37,9 +37,6 @@ void	get_links(t_read *read)
 
 void	get_link(t_read *read, char *name1, char *name2, char **s)
 {
-	int	i;
-
-	i = 0;
 	if (room_exist(read, name1) != -1 && room_exist(read, name2) != -1)
 	{
 		if (!ft_strcmp(name1, name2))
@@ -59,7 +56,7 @@ int		room_exist(t_read *read, char *name)
 	int		count;
 
 	i = 0;
-	count = get_nb_rooms(read, 1);
+	count = read->count_room;
 	while (count-- != 0)
 	{
 		if (!ft_strcmp(read->rooms[i]->name[0], name))
@@ -71,11 +68,12 @@ int		room_exist(t_read *read, char *name)
 
 void	invalid_link(t_read *read, char **s)
 {
-	ft_putstr_fd("Invalid link\n", 2);
+	ft_putstr_fd("ERROR! Invalid link\n", 2);
 	free(s[0]);
 	free(s[1]);
 	free(s);
 	clear_rooms(read);
 	clear_read(read);
+//	sleep(10); // LEEAaaaaKs
 	exit(0);
 }

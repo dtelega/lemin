@@ -40,7 +40,7 @@ typedef struct	s_room
 typedef struct	s_ways
 {
 	char	**ways;
-	int		count_ways;
+	long long int		count_ways;
 }				t_ways;
 
 char			*ft_strjoin_free(char *s1, char *s2);

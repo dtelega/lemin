@@ -29,7 +29,7 @@ void	read_map(t_read *read)
 		free(s);
 	if (mapp[0] == '\0')
 	{
-		ft_putstr_fd("Empty line!\n", 2);
+		ft_putstr_fd("ERROR! Empty line!\n", 2);
 		free(mapp);
 		free(read);
 		exit(0);
@@ -40,10 +40,22 @@ void	read_map(t_read *read)
 
 void	get_nb_of_ants(t_read *read)
 {
+	int		i;
+
+	i = 0;
+	while (read->map[0][i])
+	{
+		if (read->map[0][i] < '0' || read->map[0][i] > '9')
+		{
+			ft_putstr("ERROR! Bad count of ants!\n");
+			exit(0);
+		}
+		i++;
+	}
 	read->ants = ft_atoi(read->map[0]);
 	if (read->ants < 1)
 	{
-		ft_putstr("Bad count of ants!\n");
+		ft_putstr("ERROR! Bad count of ants!\n");
 		exit(0);
 	}
 }

@@ -17,7 +17,7 @@ void	lemin(void)
 	t_read	*read;
 	int		i;
 
-	read = (t_read *)malloc(sizeof(read));
+	read = (t_read *)malloc(100000 * sizeof(read));
 	read_map(read);
 	check_st_en(read);
 	get_nb_of_ants(read);
@@ -46,13 +46,11 @@ int		main(int ac, char **av)
 	av[0] = av[0] + 1 - 1;
 	if (ac != 1)
 	{
-		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd("ERROR! Try ./lemin < map\n", 2);
 		return (0);
 	}
 	else
 		lemin();
+	sleep(10);
 	return (1);
 }
-
-
-// segfault na ##text

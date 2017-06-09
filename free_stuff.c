@@ -18,7 +18,7 @@ void	clear_rooms(t_read *read)
 	int		count;
 
 	i = 0;
-	count = get_nb_rooms(read, 1);
+	count = read->count_room;
 	while (count-- != 0)
 	{
 		free(read->rooms[i]->name[0]);

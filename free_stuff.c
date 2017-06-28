@@ -21,10 +21,7 @@ void	clear_rooms(t_read *read)
 	count = read->count_room;
 	while (count-- != 0)
 	{
-		free(read->rooms[i]->name[0]);
-		free(read->rooms[i]->name[1]);
-		free(read->rooms[i]->name);
-		free(read->rooms[i]);
+		free_room(read, i);
 		i++;
 	}
 	free(read->rooms);
@@ -43,4 +40,12 @@ void	free_split(char **split)
 	while (split[i])
 		free(split[i++]);
 	free(split);
+}
+
+void	free_room(t_read *read, int i)
+{
+	free(read->rooms[i]->name[0]);
+	free(read->rooms[i]->name[1]);
+	free(read->rooms[i]->name);
+	free(read->rooms[i]);
 }

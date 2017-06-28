@@ -21,7 +21,7 @@ void	push_ants(t_read *read)
 		ft_putstr_fd("ERROR. Way is not found\n", 2);
 		exit(0);
 	}
-	read->par_ways = (t_ways *)malloc(1 * sizeof(read->par_ways));
+	read->par_ways = (t_ways *)malloc(1 * sizeof(t_ways));
 	read->par_ways->ways = (char **)malloc(read->ways->count_ways *
 											sizeof(read->par_ways->ways));
 	read->par_ways->count_ways = 0;

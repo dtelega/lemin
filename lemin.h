@@ -6,7 +6,7 @@
 /*   By: dtelega <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 13:40:37 by dtelega           #+#    #+#             */
-/*   Updated: 2017/06/03 17:52:54 by dtelega          ###   ########.fr       */
+/*   Updated: 2017/06/10 13:59:09 by dtelega          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct	s_read
 	struct s_ways	*ways;
 	struct s_ways	*par_ways;
 	int				count_ways;
+	int				s;
+	int				e;
 }				t_read;
 
 typedef struct	s_room
@@ -39,7 +41,7 @@ typedef struct	s_room
 
 typedef struct	s_ways
 {
-	char	**ways;
+	char				**ways;
 	long long int		count_ways;
 }				t_ways;
 
@@ -82,4 +84,5 @@ int				check_par(char *way1, char *way2, int count1, int count2);
 void			push_in_next(t_read *read);
 void			push_this_way(t_read *read, char *way);
 void			move(t_read *read, char **split, int i);
+void			free_room(t_read *read, int i);
 #endif

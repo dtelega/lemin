@@ -16,7 +16,7 @@ int		way_is_found(t_read *read)
 {
 	t_ways		*ways;
 
-	ways = (t_ways *)malloc(1 * sizeof(ways));
+	ways = (t_ways *)malloc(1 * sizeof(t_ways));
 	ways->ways = (char **)malloc(1 * sizeof(read->ways));
 	ways->ways[0] = ft_strnew(0);
 	ways->count_ways = 0;
@@ -49,7 +49,7 @@ void	start_finding(t_read *read, t_ways *ways, char *name)
 		return ;
 	}
 	split = ft_strsplit(read->rooms[i]->name[1], ' ');
-	while (split[++k])
+	while (split[++k] && read->ways->count_ways < 30000)
 		if (!room_is_here(ways->ways[ways->count_ways], split[k]))
 			start_finding(read, ways, split[k]);
 	delete_last_room(ways);

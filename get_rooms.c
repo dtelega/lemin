@@ -34,11 +34,13 @@ void	get_rooms(t_read *read)
 	count = get_nb_rooms(read, 1);
 	read->count_room = 2;
 	i = 0;
+	read->e = 0;
+	read->s = 0;
 	while (read->map[++i])
 	{
-		if (!ft_strcmp(read->map[i], "##start"))
+		if (!ft_strcmp(read->map[i], "##start") && (++read->s) != 0)
 			get_room(read, ++i, 1);
-		else if (!ft_strcmp(read->map[i], "##end"))
+		else if (!ft_strcmp(read->map[i], "##end") && (++read->e) != 0)
 			get_room(read, ++i, 0);
 		else if (read->map[i][0] == '#')
 			;
@@ -66,6 +68,10 @@ void	get_room(t_read *read, int i, int type)
 		invalid_room(read, room);
 	if (type > 1)
 		type = read->count_room++;
+	else if (type == 0 && read->e != 1)
+		free_room(read, 0);
+	else if (type == 1 && read->s != 1)
+		free_room(read, 1);
 	read->rooms[type] = room;
 	free_split(split);
 }

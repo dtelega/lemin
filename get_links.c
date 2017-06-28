@@ -6,7 +6,7 @@
 /*   By: dtelega <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 16:10:48 by dtelega           #+#    #+#             */
-/*   Updated: 2017/04/22 16:10:49 by dtelega          ###   ########.fr       */
+/*   Updated: 2017/06/10 13:58:35 by dtelega          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	get_links(t_read *read)
 {
 	int		i;
+	int		k;
 	char	**split;
 
 	i = 0;
+	k = 0;
 	while (read->map[i] && !ft_strchr(read->map[i], '-'))
 		i++;
 	while (read->map[i])
@@ -25,6 +27,10 @@ void	get_links(t_read *read)
 		if (read->map[i][0] != '#')
 		{
 			split = ft_strsplit(read->map[i], '-');
+			while (split[k])
+				k++;
+			if (k != 2)
+				invalid_link(read, split);
 			get_link(read, split[0], split[1], split);
 			get_link(read, split[1], split[0], split);
 			free(split[0]);
@@ -68,12 +74,14 @@ int		room_exist(t_read *read, char *name)
 
 void	invalid_link(t_read *read, char **s)
 {
+	int		i;
+
+	i = 0;
 	ft_putstr_fd("ERROR! Invalid link\n", 2);
-	free(s[0]);
-	free(s[1]);
+	while (s[i])
+		free(s[i++]);
 	free(s);
 	clear_rooms(read);
 	clear_read(read);
-//	sleep(10); // LEEAaaaaKs
 	exit(0);
 }

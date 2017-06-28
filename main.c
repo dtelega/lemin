@@ -12,12 +12,11 @@
 
 #include "lemin.h"
 
-void	lemin(void)
+void	lemin(int i)
 {
 	t_read	*read;
-	int		i;
 
-	read = (t_read *)malloc(100000 * sizeof(read));
+	read = (t_read *)malloc(sizeof(t_read));
 	read_map(read);
 	check_st_en(read);
 	get_nb_of_ants(read);
@@ -26,7 +25,6 @@ void	lemin(void)
 	get_rooms(read);
 	get_links(read);
 	push_ants(read);
-	i = -1;
 	while (read->ways->ways[++i][0] != '\0')
 		free(read->ways->ways[i]);
 	free(read->ways->ways[i]);
@@ -36,6 +34,7 @@ void	lemin(void)
 	while (++i < read->par_ways->count_ways)
 		free(read->par_ways->ways[i]);
 	free(read->par_ways->ways);
+	free(read->par_ways);
 	clear_rooms(read);
 	clear_read(read);
 	free(read);
@@ -50,7 +49,6 @@ int		main(int ac, char **av)
 		return (0);
 	}
 	else
-		lemin();
-	sleep(10);
+		lemin(-1);
 	return (1);
 }

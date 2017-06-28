@@ -31,9 +31,9 @@ void	check_st_en(t_read *read)
 	if (!exist(read, "##start") || !exist(read, "##end"))
 	{
 		if (exist(read, "##start") == 0)
-			ft_putstr_fd("Start is missed!\n", 2);
+			ft_putstr_fd("ERROR! Start is missed!\n", 2);
 		if (exist(read, "##end") == 0)
-			ft_putstr_fd("End is missed!\n", 2);
+			ft_putstr_fd("ERROR! End is missed!\n", 2);
 		clear_read(read);
 		exit(1);
 	}

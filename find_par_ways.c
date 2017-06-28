@@ -52,21 +52,6 @@ int		check_len_way(char *way)
 	return (len);
 }
 
-void	find_par_ways(t_read *read)
-{
-	read->par_ways = (t_ways *)malloc(1 * sizeof(read->par_ways));
-	read->par_ways->ways = (char **)malloc(4 * sizeof(read->par_ways->ways));
-	read->par_ways->ways[0] = ft_strdup(read->ways->ways[find_short_way(read)]);
-	read->ways->ways[find_short_way(read)][0] = '#';
-	read->par_ways->ways[1] = ft_strdup(read->ways->ways[find_short_way(read)]);
-	read->ways->ways[find_short_way(read)][0] = '#';
-	read->par_ways->ways[2] = ft_strdup(read->ways->ways[find_short_way(read)]);
-	read->ways->ways[find_short_way(read)][0] = '#';
-	read->par_ways->ways[3] = ft_strdup(read->ways->ways[find_short_way(read)]);
-	read->ways->ways[find_short_way(read)][0] = '#';
-	mo_memory_way(read->par_ways);
-}
-
 int		non_par(t_read *read, char *way)
 {
 	int		i;
